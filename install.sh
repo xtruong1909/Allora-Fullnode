@@ -1,16 +1,3 @@
-My Byte Points
--
--
-My BNB
--
-GPT to Earn
-Open and Sign In to ChatGPT
-Please open and log in to ChatGPT to continue using this feature.
-Go to ChatGPT
-Earnings History
-No Earnings History Yet
-Start uploading sessions to earn now!
-hello2
 #!/bin/bash
 
 # Color codes for messages
