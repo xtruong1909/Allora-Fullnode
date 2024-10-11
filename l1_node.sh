@@ -71,7 +71,6 @@ if [ ! -f $INIT_FLAG ]; then
     dasel put pruning-interval -t int -v 50 -f ${APP_HOME}/config/config.toml
     
     # Update app.toml Configuration
-    dasel put minimum-gas-prices -t string -v "0.1uallo" -f ${APP_HOME}/config/app.toml
     dasel put max-txs -t int -v 0 -f ${APP_HOME}/config/app.toml
     #* Enable telemetry
     dasel put telemetry.enabled -t bool -v true -f ${APP_HOME}/config/app.toml
