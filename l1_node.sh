@@ -55,20 +55,34 @@ if [ ! -f $INIT_FLAG ]; then
     $BINARY  --home=${APP_HOME} config set client chain-id ${NETWORK}
     $BINARY  --home=${APP_HOME} config set client keyring-backend $KEYRING_BACKEND
 
-    # Update Mempool Configuration (10GB)
-    dasel put mempool.max_txs_bytes -t int -v 10737418240 -f ${APP_HOME}/config/config.toml
-    dasel put mempool.size -t int -v 81000 -f ${APP_HOME}/config/config.toml
-    dasel put mempool.cache_size -t int -v 60750 -f ${APP_HOME}/config/config.toml
+    # Update Mempool Configuration (16GB)
+    dasel put mempool.max_txs_bytes -t int -v 17179869184 -f ${APP_HOME}/config/config.toml
+    dasel put mempool.size -t int -v 150000 -f ${APP_HOME}/config/config.toml
+    dasel put mempool.cache_size -t int -v 100000 -f ${APP_HOME}/config/config.toml
     
     # Update RPC Configuration
-    dasel put rpc.max_open_connections -t int -v 0 -f ${APP_HOME}/config/config.toml
-    dasel put rpc.max_body_bytes -t int -v 5000000 -f ${APP_HOME}/config/config.toml
-    dasel put rpc.max_header_bytes -t int -v 2097152 -f ${APP_HOME}/config/config.toml
+    dasel put rpc.max_open_connections -t int -v 2048 -f ${APP_HOME}/config/config.toml
+    dasel put rpc.max_body_bytes -t int -v 10000000 -f ${APP_HOME}/config/config.toml
+    dasel put rpc.max_header_bytes -t int -v 4194304 -f ${APP_HOME}/config/config.toml
+    dasel put rpc.timeout_broadcast_tx_commit -t string -v "15s" -f ${APP_HOME}/config/config.toml
     
     # Update Pruning Configuration
     dasel put pruning -t string -v "custom" -f ${APP_HOME}/config/config.toml
-    dasel put pruning-keep-recent -t int -v 10000 -f ${APP_HOME}/config/config.toml
-    dasel put pruning-interval -t int -v 50 -f ${APP_HOME}/config/config.toml
+    dasel put pruning-keep-recent -t int -v 20000 -f ${APP_HOME}/config/config.toml
+    dasel put pruning-interval -t int -v 100 -f ${APP_HOME}/config/config.toml
+    
+    # Increase the P2P Settings for Better Network Performance
+    dasel put p2p.max_num_inbound_peers -t int -v 200 -f ${APP_HOME}/config/config.toml
+    dasel put p2p.max_num_outbound_peers -t int -v 100 -f ${APP_HOME}/config/config.toml
+    dasel put p2p.recv_rate -t int -v 5120000 -f ${APP_HOME}/config/config.toml
+    dasel put p2p.send_rate -t int -v 5120000 -f ${APP_HOME}/config/config.toml
+    dasel put p2p.flush_throttle_timeout -t string -v "50ms" -f ${APP_HOME}/config/config.toml
+    
+    # Adjust the State Sync and Fast Sync Settings
+    dasel put fast_sync -t bool -v true -f ${APP_HOME}/config/config.toml
+    dasel put state_sync.snapshot_interval -t int -v 1000 -f ${APP_HOME}/config/config.toml
+    dasel put state_sync.snapshot_keep_recent -t int -v 5 -f ${APP_HOME}/config/config.toml
+
     
     # Update app.toml Configuration
     dasel put max-txs -t int -v 0 -f ${APP_HOME}/config/app.toml
