@@ -55,39 +55,41 @@ if [ ! -f $INIT_FLAG ]; then
     $BINARY  --home=${APP_HOME} config set client chain-id ${NETWORK}
     $BINARY  --home=${APP_HOME} config set client keyring-backend $KEYRING_BACKEND
 
+    export APP_HOME="${APP_HOME:-./data}"
+    CONFIG_FILE="${APP_HOME}/config/config.toml"
+    APP_FILE="${APP_HOME}/config/app.toml"
+    
     # Update Mempool Configuration (16GB)
-    dasel put mempool.max_txs_bytes -t int -v 17179869184 -f ${APP_HOME}/config/config.toml
-    dasel put mempool.size -t int -v 150000 -f ${APP_HOME}/config/config.toml
-    dasel put mempool.cache_size -t int -v 100000 -f ${APP_HOME}/config/config.toml
+    sed -i 's|max_txs_bytes = .*|max_txs_bytes = 17179869184|' $CONFIG_FILE
+    sed -i 's|size = .*|size = 150000|' $CONFIG_FILE
+    sed -i 's|cache_size = .*|cache_size = 100000|' $CONFIG_FILE
     
     # Update RPC Configuration
-    dasel put rpc.max_open_connections -t int -v 2048 -f ${APP_HOME}/config/config.toml
-    dasel put rpc.max_body_bytes -t int -v 10000000 -f ${APP_HOME}/config/config.toml
-    dasel put rpc.max_header_bytes -t int -v 4194304 -f ${APP_HOME}/config/config.toml
-    dasel put rpc.timeout_broadcast_tx_commit -t string -v "15s" -f ${APP_HOME}/config/config.toml
+    sed -i 's|max_open_connections = .*|max_open_connections = 0|' $CONFIG_FILE
+    sed -i 's|max_body_bytes = .*|max_body_bytes = 10000000|' $CONFIG_FILE
+    sed -i 's|max_header_bytes = .*|max_header_bytes = 4194304|' $CONFIG_FILE
+    sed -i 's|timeout_broadcast_tx_commit = .*|timeout_broadcast_tx_commit = "15s"|' $CONFIG_FILE
     
     # Update Pruning Configuration
-    dasel put pruning -t string -v "custom" -f ${APP_HOME}/config/config.toml
-    dasel put pruning-keep-recent -t int -v 20000 -f ${APP_HOME}/config/config.toml
-    dasel put pruning-interval -t int -v 100 -f ${APP_HOME}/config/config.toml
+    sed -i 's|pruning = .*|pruning = "custom"|' $APP_FILE
+    sed -i 's|pruning-keep-recent = .*|pruning-keep-recent = 10000|' $APP_FILE
+    sed -i 's|pruning-interval = .*|pruning-interval = 100|' $APP_FILE
     
     # Increase the P2P Settings for Better Network Performance
-    dasel put p2p.max_num_inbound_peers -t int -v 200 -f ${APP_HOME}/config/config.toml
-    dasel put p2p.max_num_outbound_peers -t int -v 100 -f ${APP_HOME}/config/config.toml
-    dasel put p2p.recv_rate -t int -v 5120000 -f ${APP_HOME}/config/config.toml
-    dasel put p2p.send_rate -t int -v 5120000 -f ${APP_HOME}/config/config.toml
-    dasel put p2p.flush_throttle_timeout -t string -v "50ms" -f ${APP_HOME}/config/config.toml
+    sed -i 's|max_num_inbound_peers = .*|max_num_inbound_peers = 200|' $CONFIG_FILE
+    sed -i 's|max_num_outbound_peers = .*|max_num_outbound_peers = 100|' $CONFIG_FILE
+    sed -i 's|recv_rate = .*|recv_rate = 5120000|' $CONFIG_FILE
+    sed -i 's|send_rate = .*|send_rate = 5120000|' $CONFIG_FILE
+    sed -i 's|flush_throttle_timeout = .*|flush_throttle_timeout = "50ms"|' $CONFIG_FILE
     
     # Adjust the State Sync and Fast Sync Settings
-    dasel put fast_sync -t bool -v true -f ${APP_HOME}/config/config.toml
-    dasel put state_sync.snapshot_interval -t int -v 1000 -f ${APP_HOME}/config/config.toml
-    dasel put state_sync.snapshot_keep_recent -t int -v 5 -f ${APP_HOME}/config/config.toml
-
+    sed -i 's|fast_sync = .*|fast_sync = true|' $CONFIG_FILE
+    sed -i 's|snapshot_interval = .*|snapshot_interval = 1000|' $CONFIG_FILE
+    sed -i 's|snapshot_keep_recent = .*|snapshot_keep_recent = 5|' $CONFIG_FILE
     
     # Update app.toml Configuration
-    dasel put max-txs -t int -v 0 -f ${APP_HOME}/config/app.toml
-    #* Enable telemetry
-    dasel put telemetry.enabled -t bool -v true -f ${APP_HOME}/config/app.toml
+    sed -i 's|max-txs = .*|max-txs = 0|' $APP_FILE
+    sed -i 's|telemetry.enabled = .*|telemetry.enabled = true|' $APP_FILE
 
     touch $INIT_FLAG
 fi
