@@ -37,6 +37,7 @@ sudo usermod -aG docker $USER
 
 # Clone the repository
 echo -e "${LIGHT_BLUE}Cloning Allora Chain repository...${RESET}"
+rm -rf allora-network
 git clone -b main https://github.com/allora-network/allora-chain.git
 
 # Navigate to the cloned directory
