@@ -58,21 +58,21 @@ if [ ! -f $INIT_FLAG ]; then
     export APP_HOME="${APP_HOME:-./data}"
     CONFIG_FILE="${APP_HOME}/config/config.toml"
     APP_FILE="${APP_HOME}/config/app.toml"
-    
+    wget -O ${APP_HOME}/addrbook.json  https://server-3.itrocket.net/testnet/allora/addrbook.json
     # Update Mempool Configuration (16GB)
     sed -i 's|max_txs_bytes = .*|max_txs_bytes = 8589934592|' $CONFIG_FILE
     sed -i 's|size = .*|size = 100000|' $CONFIG_FILE
     sed -i 's|cache_size = .*|cache_size = 100000|' $CONFIG_FILE
-    
+    sed -i 's|max_packet_msg_payload_size = .*|max_packet_msg_payload_size = 200000|' $CONFIG_FILE
     # Update RPC Configuration
     sed -i 's|max_open_connections = .*|max_open_connections = 5000|' $CONFIG_FILE
     sed -i 's|max_body_bytes = .*|max_body_bytes = 10000000|' $CONFIG_FILE
     sed -i 's|max_header_bytes = .*|max_header_bytes = 4194304|' $CONFIG_FILE
     sed -i 's|timeout_broadcast_tx_commit = .*|timeout_broadcast_tx_commit = "7s"|' $CONFIG_FILE
     
-    sed -i 's|timeout_propose = .*|timeout_propose = "2s"|' $CONFIG_FILE
-    sed -i 's|timeout_prevote = .*|timeout_prevote = "800ms"|' $CONFIG_FILE
-    sed -i 's|timeout_precommit = .*|timeout_precommit = "800ms"|' $CONFIG_FILE
+    sed -i 's|timeout_propose = .*|timeout_propose = "1s"|' $CONFIG_FILE
+    sed -i 's|timeout_prevote = .*|timeout_prevote = "700ms"|' $CONFIG_FILE
+    sed -i 's|timeout_precommit = .*|timeout_precommit = "700ms"|' $CONFIG_FILE
 
     # Update Pruning Configuration
     sed -i 's|pruning = .*|pruning = "custom"|' $APP_FILE
