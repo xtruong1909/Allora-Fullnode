@@ -97,6 +97,11 @@ echo "Node is initialized"
 
 SEEDS=$(curl -Ls ${SEEDS_URL})
 PEERS=$(curl -Ls ${PEERS_URL})
+PEERS=$(curl -Ls ${PEERS_URL})
+
+NEW_PEER="a8cde2de31410d896668e53446495a4a68c4c24f@allora-testnet-peer.itrocket.net:27656,5965f27e7d59d788aced79d099713c3fea1ceca1@157.90.209.40:26656,7d548f78f0c67d391279c36fa9e127c52ce8b14c@65.108.225.207:55656,18fbf5f16f73e216f93304d94e8b79bf5acd7578@15.204.101.152:26656,2eb9f5f80d721be2d37ab72c10a7be6aaf7897a4@15.204.101.92:26656,0f6b64fcd38872d18a78d89e090a5e6928883d52@8.209.116.116:26656,3a7eb1cdefc0dcbb79eb143837a17260ab88eb87@212.126.35.133:26664,c8f7c18f98ada342100c7bade62a28a244188951@204.29.146.8:26656,d3c79122924ff477e941ec0ca1ed775cfb01ca20@66.35.84.140:26656,9cca620ee99e7d733baee084fd7b54273d9d6bdb@35.228.18.126:26656,c416589304a02cd55509fcd5584f2ef2653144e2@116.202.116.35:29656"
+
+PEERS="${PEERS},${NEW_PEER}"
 
 if [ "x${STATE_SYNC_RPC1}" != "x" ]; then
     echo "Enable state sync"
@@ -133,7 +138,7 @@ if [ "$UPGRADE" == "true" ]; then
         --minimum-gas-prices=0${DENOM} \
         --rpc.laddr=tcp://0.0.0.0:26657 \
         --p2p.seeds=$SEEDS \
-        --p2p.persistent_peers $PEERS
+        --p2p.persistent_peers=$PEERS
 else
     echo "Starting validator node without cosmovisor"
     allorad \
@@ -143,5 +148,5 @@ else
         --minimum-gas-prices=0${DENOM} \
         --rpc.laddr=tcp://0.0.0.0:26657 \
         --p2p.seeds=$SEEDS \
-        --p2p.persistent_peers $PEERS
+        --p2p.persistent_peers=$PEERS
 fi
