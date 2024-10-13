@@ -59,6 +59,7 @@ if [ ! -f $INIT_FLAG ]; then
     CONFIG_FILE="${APP_HOME}/config/config.toml"
     APP_FILE="${APP_HOME}/config/app.toml"
     # Update Mempool Configuration (16GB)
+    sed -i 's|chunk_fetchers = .*|chunk_fetchers = "10"|' $CONFIG_FILE
     sed -i 's|max_txs_bytes = .*|max_txs_bytes = 8589934592|' $CONFIG_FILE
     sed -i 's|size = .*|size = 100000|' $CONFIG_FILE
     sed -i 's|cache_size = .*|cache_size = 100000|' $CONFIG_FILE
