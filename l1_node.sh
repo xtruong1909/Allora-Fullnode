@@ -63,7 +63,6 @@ if [ ! -f $INIT_FLAG ]; then
     sed -i 's|max_txs_bytes = .*|max_txs_bytes = 8589934592|' $CONFIG_FILE
     sed -i 's|size = .*|size = 100000|' $CONFIG_FILE
     sed -i 's|cache_size = .*|cache_size = 100000|' $CONFIG_FILE
-    sed -i 's|max_packet_msg_payload_size = .*|max_packet_msg_payload_size = 200000|' $CONFIG_FILE
     # Update RPC Configuration
     sed -i 's|max_open_connections = .*|max_open_connections = 5000|' $CONFIG_FILE
     sed -i 's|max_body_bytes = .*|max_body_bytes = 10000000|' $CONFIG_FILE
