@@ -60,24 +60,29 @@ if [ ! -f $INIT_FLAG ]; then
     APP_FILE="${APP_HOME}/config/app.toml"
     
     # Update Mempool Configuration (16GB)
-    sed -i 's|max_txs_bytes = .*|max_txs_bytes = 17179869184|' $CONFIG_FILE
-    sed -i 's|size = .*|size = 150000|' $CONFIG_FILE
+    sed -i 's|max_txs_bytes = .*|max_txs_bytes = 8589934592|' $CONFIG_FILE
+    sed -i 's|size = .*|size = 100000|' $CONFIG_FILE
     sed -i 's|cache_size = .*|cache_size = 100000|' $CONFIG_FILE
     
     # Update RPC Configuration
     sed -i 's|max_open_connections = .*|max_open_connections = 0|' $CONFIG_FILE
     sed -i 's|max_body_bytes = .*|max_body_bytes = 10000000|' $CONFIG_FILE
     sed -i 's|max_header_bytes = .*|max_header_bytes = 4194304|' $CONFIG_FILE
-    sed -i 's|timeout_broadcast_tx_commit = .*|timeout_broadcast_tx_commit = "10s"|' $CONFIG_FILE
+    sed -i 's|timeout_broadcast_tx_commit = .*|timeout_broadcast_tx_commit = "9s"|' $CONFIG_FILE
     
+    sed -i 's|timeout_propose = .*|timeout_propose = "2s"|' $CONFIG_FILE
+    sed -i 's|timeout_prevote = .*|timeout_prevote = "800ms"|' $CONFIG_FILE
+    sed -i 's|timeout_precommit = .*|timeout_precommit = "800ms"|' $CONFIG_FILE
+
     # Update Pruning Configuration
     sed -i 's|pruning = .*|pruning = "custom"|' $APP_FILE
-    sed -i 's|pruning-keep-recent = .*|pruning-keep-recent = 2000|' $APP_FILE
-    sed -i 's|pruning-interval = .*|pruning-interval = 100|' $APP_FILE
+    sed -i 's|pruning-keep-recent = .*|pruning-keep-recent = "1000"|' $APP_FILE
+    sed -i 's|pruning-keep-every = .*|pruning-keep-every = "0"|' $APP_FILE
+    sed -i 's|pruning-interval = .*|pruning-interval = "10"|' $APP_FILE
     
     # Increase the P2P Settings for Better Network Performance
     sed -i 's|max_num_inbound_peers = .*|max_num_inbound_peers = 200|' $CONFIG_FILE
-    sed -i 's|max_num_outbound_peers = .*|max_num_outbound_peers = 100|' $CONFIG_FILE
+    sed -i 's|max_num_outbound_peers = .*|max_num_outbound_peers = 80|' $CONFIG_FILE
     sed -i 's|recv_rate = .*|recv_rate = 5120000|' $CONFIG_FILE
     sed -i 's|send_rate = .*|send_rate = 5120000|' $CONFIG_FILE
     sed -i 's|flush_throttle_timeout = .*|flush_throttle_timeout = "50ms"|' $CONFIG_FILE
@@ -90,6 +95,7 @@ if [ ! -f $INIT_FLAG ]; then
     # Update app.toml Configuration
     sed -i 's|max-txs = .*|max-txs = 0|' $APP_FILE
     sed -i 's|telemetry.enabled = .*|telemetry.enabled = true|' $APP_FILE
+    sed -i 's|minimum-gas-prices = .*|minimum-gas-prices = "0.025ualo"|' $APP_FILE
 
     touch $INIT_FLAG
 fi
@@ -135,7 +141,7 @@ if [ "$UPGRADE" == "true" ]; then
         --home=${APP_HOME} \
         start \
         --moniker=${MONIKER} \
-        --minimum-gas-prices=0${DENOM} \
+        --minimum-gas-prices=0.025${DENOM} \
         --rpc.laddr=tcp://0.0.0.0:26657 \
         --p2p.seeds=$SEEDS \
         --p2p.persistent_peers=$PEERS
@@ -145,7 +151,7 @@ else
         --home=${APP_HOME} \
         start \
         --moniker=${MONIKER} \
-        --minimum-gas-prices=0${DENOM} \
+        --minimum-gas-prices=0.025${DENOM} \
         --rpc.laddr=tcp://0.0.0.0:26657 \
         --p2p.seeds=$SEEDS \
         --p2p.persistent_peers=$PEERS
