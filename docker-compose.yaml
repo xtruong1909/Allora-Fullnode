@@ -4,7 +4,7 @@ services:
     image: "alloranetwork/allora-chain:v0.5.0" # docker image without cosmovisor. use vx.x.x-upgrader for upgrade image
     environment:
       - NETWORK=allora-testnet-1
-      - MONIKER=REJUMP-TESTNODE
+      - MONIKER=REJUMP-TNODE
       - APP_HOME=/data
       - HOME=/data
       - STATE_SYNC_RPC1=https://allora-testnet-rpc.itrocket.net
