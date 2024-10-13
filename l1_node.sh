@@ -63,15 +63,16 @@ if [ ! -f $INIT_FLAG ]; then
     sed -i 's|max_txs_bytes = .*|max_txs_bytes = 8589934592|' $CONFIG_FILE
     sed -i 's|size = .*|size = 100000|' $CONFIG_FILE
     sed -i 's|cache_size = .*|cache_size = 100000|' $CONFIG_FILE
+    
     # Update RPC Configuration
     sed -i 's|max_open_connections = .*|max_open_connections = 5000|' $CONFIG_FILE
     sed -i 's|max_body_bytes = .*|max_body_bytes = 10000000|' $CONFIG_FILE
     sed -i 's|max_header_bytes = .*|max_header_bytes = 4194304|' $CONFIG_FILE
     sed -i 's|timeout_broadcast_tx_commit = .*|timeout_broadcast_tx_commit = "7s"|' $CONFIG_FILE
     
-    sed -i 's|timeout_propose = .*|timeout_propose = "1s"|' $CONFIG_FILE
-    sed -i 's|timeout_prevote = .*|timeout_prevote = "700ms"|' $CONFIG_FILE
-    sed -i 's|timeout_precommit = .*|timeout_precommit = "700ms"|' $CONFIG_FILE
+    sed -i 's|timeout_propose = .*|timeout_propose = "2s"|' $CONFIG_FILE
+    sed -i 's|timeout_prevote = .*|timeout_prevote = "800ms"|' $CONFIG_FILE
+    sed -i 's|timeout_precommit = .*|timeout_precommit = "800ms"|' $CONFIG_FILE
 
     # Update Pruning Configuration
     sed -i 's|pruning = .*|pruning = "custom"|' $APP_FILE
@@ -95,6 +96,7 @@ if [ ! -f $INIT_FLAG ]; then
     sed -i 's|max-txs = .*|max-txs = 0|' $APP_FILE
     sed -i 's|telemetry.enabled = .*|telemetry.enabled = true|' $APP_FILE
     sed -i 's|minimum-gas-prices = .*|minimum-gas-prices = "0.025ualo"|' $APP_FILE
+
 
     touch $INIT_FLAG
 fi
