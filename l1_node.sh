@@ -68,11 +68,11 @@ if [ ! -f $INIT_FLAG ]; then
     sed -i 's|max_open_connections = .*|max_open_connections = 0|' $CONFIG_FILE
     sed -i 's|max_body_bytes = .*|max_body_bytes = 10000000|' $CONFIG_FILE
     sed -i 's|max_header_bytes = .*|max_header_bytes = 4194304|' $CONFIG_FILE
-    sed -i 's|timeout_broadcast_tx_commit = .*|timeout_broadcast_tx_commit = "15s"|' $CONFIG_FILE
+    sed -i 's|timeout_broadcast_tx_commit = .*|timeout_broadcast_tx_commit = "10s"|' $CONFIG_FILE
     
     # Update Pruning Configuration
     sed -i 's|pruning = .*|pruning = "custom"|' $APP_FILE
-    sed -i 's|pruning-keep-recent = .*|pruning-keep-recent = 10000|' $APP_FILE
+    sed -i 's|pruning-keep-recent = .*|pruning-keep-recent = 2000|' $APP_FILE
     sed -i 's|pruning-interval = .*|pruning-interval = 100|' $APP_FILE
     
     # Increase the P2P Settings for Better Network Performance
