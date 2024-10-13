@@ -59,8 +59,9 @@ if [ ! -f $INIT_FLAG ]; then
     CONFIG_FILE="${APP_HOME}/config/config.toml"
     APP_FILE="${APP_HOME}/config/app.toml"
     
-    sed -i 's|chunk_fetchers = .*|chunk_fetchers = "10"|' $CONFIG_FILE
+    	sed -i 's|chunk_fetchers = .*|chunk_fetchers = "10"|' $CONFIG_FILE
 	sed -i 's|timeout_commit = .*|timeout_commit = "2s"|' $CONFIG_FILE
+ 	sed -i 's|^skip_timeout_commit = .*|skip_timeout_commit = false|' $CONFIG_FILE
 	sed -i 's|peer_query_maj23_sleep_duration = .*|peer_query_maj23_sleep_duration = "3s"|' $CONFIG_FILE
 	sed -i 's|timeout_precommit = .*|timeout_precommit = "700ms"|' $CONFIG_FILE
 	sed -i 's|max_num_inbound_peers = .*|max_num_inbound_peers = 200|' $CONFIG_FILE
