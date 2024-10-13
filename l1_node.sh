@@ -67,7 +67,7 @@ if [ ! -f $INIT_FLAG ]; then
     sed -i 's|max_open_connections = .*|max_open_connections = 5000|' $CONFIG_FILE
     sed -i 's|max_body_bytes = .*|max_body_bytes = 10000000|' $CONFIG_FILE
     sed -i 's|max_header_bytes = .*|max_header_bytes = 4194304|' $CONFIG_FILE
-    sed -i 's|timeout_broadcast_tx_commit = .*|timeout_broadcast_tx_commit = "8s"|' $CONFIG_FILE
+    sed -i 's|timeout_broadcast_tx_commit = .*|timeout_broadcast_tx_commit = "6s"|' $CONFIG_FILE
     
     sed -i 's|timeout_propose = .*|timeout_propose = "2s"|' $CONFIG_FILE
     sed -i 's|timeout_prevote = .*|timeout_prevote = "800ms"|' $CONFIG_FILE
