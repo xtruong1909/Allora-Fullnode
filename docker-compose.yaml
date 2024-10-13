@@ -7,7 +7,7 @@ services:
       - MONIKER=REJUMPJUMPJUMPJUMPJUMPJUMPJUMP
       - APP_HOME=/data
       - HOME=/data
-      - STATE_SYNC_RPC1=https://allora-rpc.testnet.allora.network:443
+      - STATE_SYNC_RPC1=https://allora-testnet-rpc.itrocket.net
       - STATE_SYNC_RPC2=https://allora-rpc.testnet.allora.network:443
       #- UPGRADE=true # set this to true for chain upgrade runs
     volumes:
