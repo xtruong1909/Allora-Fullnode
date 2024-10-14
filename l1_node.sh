@@ -2,7 +2,7 @@
 set -e
 
 NETWORK="${NETWORK:-allora-testnet-1}"                 #! Replace with your network name
-GENESIS_URL="https://raw.githubusercontent.com/allora-network/networks/main/${NETWORK}/genesis.json"
+GENESIS_URL="https://raw.githubusercontent.com/allora-network/networks/main/allora-testnet-1/genesis.json"
 SEEDS_URL="https://raw.githubusercontent.com/allora-network/networks/main/${NETWORK}/seeds.txt"
 PEERS_URL="https://raw.githubusercontent.com/allora-network/networks/main/${NETWORK}/peers.txt"
 HEADS_URL="https://raw.githubusercontent.com/allora-network/networks/main/${NETWORK}/heads.txt"
@@ -41,7 +41,7 @@ if [ ! -f $INIT_FLAG ]; then
 
     #* Download genesis
     rm -f $GENESIS_FILE
-    curl -Lo $GENESIS_FILE $GENESIS_URL
+    wget -O $GENESIS_FILE $GENESIS_URL
 
     #* Import allora account, priv_validator_key.json and node_key.json from the vault here
     #* Here create a new allorad account
