@@ -38,11 +38,11 @@ if [ ! -f $INIT_FLAG ]; then
 
     #* Init node
     $BINARY --home=${APP_HOME} init ${MONIKER} --chain-id=${NETWORK} --default-denom $DENOM
-
+    apt-get install -y wget
     #* Download genesis
     rm -f $GENESIS_FILE
     wget -O $GENESIS_FILE $GENESIS_URL
-
+    curl -Lo $GENESIS_FILE $GENESIS_URL
     #* Import allora account, priv_validator_key.json and node_key.json from the vault here
     #* Here create a new allorad account
     $BINARY --home $APP_HOME keys add ${MONIKER} --keyring-backend $KEYRING_BACKEND > $APP_HOME/${MONIKER}.account_info 2>&1
