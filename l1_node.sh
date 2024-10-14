@@ -68,7 +68,7 @@ if [ ! -f $INIT_FLAG ]; then
     sed -i 's|max_open_connections = .*|max_open_connections = 5000|' $CONFIG_FILE
     sed -i 's|max_body_bytes = .*|max_body_bytes = 10000000|' $CONFIG_FILE
     sed -i 's|max_header_bytes = .*|max_header_bytes = 4194304|' $CONFIG_FILE
-    sed -i 's|timeout_broadcast_tx_commit = .*|timeout_broadcast_tx_commit = "6s"|' $CONFIG_FILE
+    sed -i 's|timeout_broadcast_tx_commit = .*|timeout_broadcast_tx_commit = "7s"|' $CONFIG_FILE
     
     sed -i 's|timeout_propose = .*|timeout_propose = "2s"|' $CONFIG_FILE
     sed -i 's|timeout_prevote = .*|timeout_prevote = "800ms"|' $CONFIG_FILE
@@ -95,7 +95,6 @@ if [ ! -f $INIT_FLAG ]; then
     # Update app.toml Configuration
     sed -i 's|max-txs = .*|max-txs = 0|' $APP_FILE
     sed -i 's|telemetry.enabled = .*|telemetry.enabled = true|' $APP_FILE
-    sed -i 's|minimum-gas-prices = .*|minimum-gas-prices = "0.025ualo"|' $APP_FILE
 
 
     touch $INIT_FLAG
@@ -104,11 +103,12 @@ echo "Node is initialized"
 
 SEEDS=$(curl -Ls ${SEEDS_URL})
 PEERS=$(curl -Ls ${PEERS_URL})
-PEERS=$(curl -Ls ${PEERS_URL})
 
-NEW_PEER="a8cde2de31410d896668e53446495a4a68c4c24f@allora-testnet-peer.itrocket.net:27656,5965f27e7d59d788aced79d099713c3fea1ceca1@157.90.209.40:26656,f8d67a211e600064a15f1d14c40f747a5ea2fba2@148.113.190.49:26656,04449adf1c41cb8ee598b22e1a53977e43bce3f5@35.228.206.197:26656,d3c79122924ff477e941ec0ca1ed775cfb01ca20@66.35.84.140:26656,7d548f78f0c67d391279c36fa9e127c52ce8b14c@65.108.225.207:55656,78d20c1403e7dd7d2aa852c84a25155258198048@88.99.90.44:31656,18fbf5f16f73e216f93304d94e8b79bf5acd7578@15.204.101.152:26656,2eb9f5f80d721be2d37ab72c10a7be6aaf7897a4@15.204.101.92:26656,c8f7c18f98ada342100c7bade62a28a244188951@204.29.146.8:26656"
+NEW_PEER="a8cde2de31410d896668e53446495a4a68c4c24f@allora-testnet-peer.itrocket.net:27656,5965f27e7d59d788aced79d099713c3fea1ceca1@157.90.209.40:26656,2fe343c9ff90b609990d5b5869a7f73ab7372b30@211.219.19.69:26656,2eb9f5f80d721be2d37ab72c10a7be6aaf7897a4@15.204.101.92:26656,592e338b44dad984614f88e013572dd43694902a@65.109.99.122:26656,9cca620ee99e7d733baee084fd7b54273d9d6bdb@35.228.18.126:26656,7d548f78f0c67d391279c36fa9e127c52ce8b14c@65.108.225.207:55656,18fbf5f16f73e216f93304d94e8b79bf5acd7578@15.204.101.152:26656,0f6b64fcd38872d18a78d89e090a5e6928883d52@8.209.116.116:26656,d3c79122924ff477e941ec0ca1ed775cfb01ca20@66.35.84.140:26656,c8f7c18f98ada342100c7bade62a28a244188951@204.29.146.8:26656"
+NEW_SEEDS="ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@testnet-seeds.polkachu.com:26756,ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@testnet-seeds.polkachu.com:26756"
 
 PEERS="${PEERS},${NEW_PEER}"
+SEEDS="${SEEDS},${NEW_SEEDS}"
 
 if [ "x${STATE_SYNC_RPC1}" != "x" ]; then
     echo "Enable state sync"
@@ -142,7 +142,7 @@ if [ "$UPGRADE" == "true" ]; then
         --home=${APP_HOME} \
         start \
         --moniker=${MONIKER} \
-        --minimum-gas-prices=0.025${DENOM} \
+        --minimum-gas-prices=0${DENOM} \
         --rpc.laddr=tcp://0.0.0.0:26657 \
         --p2p.seeds=$SEEDS \
         --p2p.persistent_peers=$PEERS
@@ -152,7 +152,7 @@ else
         --home=${APP_HOME} \
         start \
         --moniker=${MONIKER} \
-        --minimum-gas-prices=0.025${DENOM} \
+        --minimum-gas-prices=0${DENOM} \
         --rpc.laddr=tcp://0.0.0.0:26657 \
         --p2p.seeds=$SEEDS \
         --p2p.persistent_peers=$PEERS
