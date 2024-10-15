@@ -6,12 +6,15 @@ GENESIS_URL="https://raw.githubusercontent.com/allora-network/networks/main/allo
 SEEDS_URL="https://raw.githubusercontent.com/allora-network/networks/main/${NETWORK}/seeds.txt"
 PEERS_URL="https://raw.githubusercontent.com/allora-network/networks/main/${NETWORK}/peers.txt"
 HEADS_URL="https://raw.githubusercontent.com/allora-network/networks/main/${NETWORK}/heads.txt"
+ADDRESS_URL="https://snapshots.polkachu.com/testnet-addrbook/allora/addrbook.json"
 
 export APP_HOME="${APP_HOME:-./data}"
 INIT_FLAG="${APP_HOME}/.initialized"
 MONIKER="${MONIKER:-$(hostname)}"
 KEYRING_BACKEND=test                              #! Use test for simplicity, you should decide which backend to use !!!
 GENESIS_FILE="${APP_HOME}/config/genesis.json"
+ADDRESS_FILE="${APP_HOME}/config/addrbook.json"
+
 DENOM="uallo"
 RPC_PORT="${RPC_PORT:-26657}"
 
@@ -40,6 +43,8 @@ if [ ! -f $INIT_FLAG ]; then
     $BINARY --home=${APP_HOME} init ${MONIKER} --chain-id=${NETWORK} --default-denom $DENOM
     #* Download genesis
     rm -f $GENESIS_FILE
+    rm -f $ADDRESS_FILE
+    curl -Lo $ADDRESS_FILE $ADDRESS_URL
     curl -Lo $GENESIS_FILE $GENESIS_URL
     #* Import allora account, priv_validator_key.json and node_key.json from the vault here
     #* Here create a new allorad account
@@ -106,7 +111,7 @@ echo "Node is initialized"
 SEEDS="2eb9f5f80d721be2d37ab72c10a7be6aaf7897a4@seed-1.testnet.allora.network:26656,18fbf5f16f73e216f93304d94e8b79bf5acd7578@seed-2.testnet.allora.network:26656"
 PEERS="2bd135ae4cc0362ac2b62891947f4edf1be45edb@peer-1.testnet.allora.network:26656,b91e41cf5340d418969f25702de42ba31b381710@peer-2.testnet.allora.network:26656,eef95b887114cda87fc6c7cbb6dfaa0937259878@peer-3.testnet.allora.network:26656"
 
-NEW_PEER="23f24d0a6e80e07ecd9c89aba5896ddea5307bec@213.136.72.4:26656,a8cde2de31410d896668e53446495a4a68c4c24f@allora-testnet-peer.itrocket.net:27656,5965f27e7d59d788aced79d099713c3fea1ceca1@157.90.209.40:26656,2fe343c9ff90b609990d5b5869a7f73ab7372b30@211.219.19.69:26656,2eb9f5f80d721be2d37ab72c10a7be6aaf7897a4@15.204.101.92:26656,592e338b44dad984614f88e013572dd43694902a@65.109.99.122:26656,9cca620ee99e7d733baee084fd7b54273d9d6bdb@35.228.18.126:26656,7d548f78f0c67d391279c36fa9e127c52ce8b14c@65.108.225.207:55656,18fbf5f16f73e216f93304d94e8b79bf5acd7578@15.204.101.152:26656,0f6b64fcd38872d18a78d89e090a5e6928883d52@8.209.116.116:26656,d3c79122924ff477e941ec0ca1ed775cfb01ca20@66.35.84.140:26656,c8f7c18f98ada342100c7bade62a28a244188951@204.29.146.8:26656"
+NEW_PEER="23f24d0a6e80e07ecd9c89aba5896ddea5307bec@213.136.72.4:26656,aa8cde2de31410d896668e53446495a4a68c4c24f@allora-testnet-peer.itrocket.net:27656,5965f27e7d59d788aced79d099713c3fea1ceca1@157.90.209.40:26656,0f6b64fcd38872d18a78d89e090a5e6928883d52@8.209.116.116:26656,7d548f78f0c67d391279c36fa9e127c52ce8b14c@65.108.225.207:55656,18fbf5f16f73e216f93304d94e8b79bf5acd7578@15.204.101.152:26656,592e338b44dad984614f88e013572dd43694902a@65.109.99.122:26656,d3c79122924ff477e941ec0ca1ed775cfb01ca20@66.35.84.140:26656,9cca620ee99e7d733baee084fd7b54273d9d6bdb@35.228.18.126:26656,c8f7c18f98ada342100c7bade62a28a244188951@204.29.146.8:26656,2eb9f5f80d721be2d37ab72c10a7be6aaf7897a4@15.204.101.92:26656,5c2a752c9b1952dbed075c56c600c3a79b58c395@195.3.220.21:26746"
 NEW_SEEDS="ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@testnet-seeds.polkachu.com:26756,ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@testnet-seeds.polkachu.com:26756"
 
 PEERS="${PEERS},${NEW_PEER}"
