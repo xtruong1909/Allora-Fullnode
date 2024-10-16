@@ -69,13 +69,13 @@ if [ ! -f $INIT_FLAG ]; then
     
     # Update RPC Configuration
     sed -i 's|max_open_connections = .*|max_open_connections = 0|' $CONFIG_FILE
-    sed -i 's|max_request_batch_size = .*|max_request_batch_size = 5000|' $CONFIG_FILE
-    sed -i 's|max_subscription_clients = .*|max_subscription_clients = 1000|' $CONFIG_FILE
-    sed -i 's|max_subscriptions_per_client = .*|max_subscriptions_per_client = 20|' $CONFIG_FILE
+    sed -i 's|max_request_batch_size = .*|max_request_batch_size = 10000|' $CONFIG_FILE
+    sed -i 's|max_subscription_clients = .*|max_subscription_clients = 5000|' $CONFIG_FILE
+    sed -i 's|max_subscriptions_per_client = .*|max_subscriptions_per_client = 50|' $CONFIG_FILE
 
-    sed -i 's|max_body_bytes = .*|max_body_bytes = 10000000|' $CONFIG_FILE
-    sed -i 's|max_header_bytes = .*|max_header_bytes = 4194304|' $CONFIG_FILE
-    sed -i 's|timeout_broadcast_tx_commit = .*|timeout_broadcast_tx_commit = "7s"|' $CONFIG_FILE
+    sed -i 's|max_body_bytes = .*|max_body_bytes = 20000000|' $CONFIG_FILE
+    sed -i 's|max_header_bytes = .*|max_header_bytes = 8388608|' $CONFIG_FILE
+    sed -i 's|timeout_broadcast_tx_commit = .*|timeout_broadcast_tx_commit = "15s"|' $CONFIG_FILE
     
     sed -i 's|timeout_propose = .*|timeout_propose = "2s"|' $CONFIG_FILE
     sed -i 's|timeout_prevote = .*|timeout_prevote = "800ms"|' $CONFIG_FILE
