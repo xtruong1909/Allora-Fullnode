@@ -64,14 +64,14 @@ if [ ! -f $INIT_FLAG ]; then
     # Update Mempool Configuration (16GB)
     sed -i 's|chunk_fetchers = .*|chunk_fetchers = "10"|' $CONFIG_FILE
     sed -i 's|max_txs_bytes = .*|max_txs_bytes = 8589934592|' $CONFIG_FILE
-    sed -i 's|size = .*|size = 100000|' $CONFIG_FILE
-    sed -i 's|cache_size = .*|cache_size = 100000|' $CONFIG_FILE
+    sed -i 's|size = .*|size = 500000|' $CONFIG_FILE
+    sed -i 's|cache_size = .*|cache_size = 500000|' $CONFIG_FILE
     
     # Update RPC Configuration
     sed -i 's|max_open_connections = .*|max_open_connections = 0|' $CONFIG_FILE
-    sed -i 's|max_request_batch_size = .*|max_request_batch_size = 10000|' $CONFIG_FILE
-    sed -i 's|max_subscription_clients = .*|max_subscription_clients = 5000|' $CONFIG_FILE
-    sed -i 's|max_subscriptions_per_client = .*|max_subscriptions_per_client = 50|' $CONFIG_FILE
+    sed -i 's|max_request_batch_size = .*|max_request_batch_size = 20000|' $CONFIG_FILE
+    sed -i 's|max_subscription_clients = .*|max_subscription_clients = 20000|' $CONFIG_FILE
+    sed -i 's|max_subscriptions_per_client = .*|max_subscriptions_per_client = 1000|' $CONFIG_FILE
 
     sed -i 's|max_body_bytes = .*|max_body_bytes = 20000000|' $CONFIG_FILE
     sed -i 's|max_header_bytes = .*|max_header_bytes = 8388608|' $CONFIG_FILE
