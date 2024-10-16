@@ -69,7 +69,7 @@ if [ ! -f $INIT_FLAG ]; then
     
     # Update RPC Configuration
     sed -i 's|max_open_connections = .*|max_open_connections = 0|' $CONFIG_FILE
-    sed -i 's|max_request_batch_size = .*|max_request_batch_size = 20000|' $CONFIG_FILE
+    sed -i 's|max_request_batch_size = .*|max_request_batch_size = 50000|' $CONFIG_FILE
     sed -i 's|max_subscription_clients = .*|max_subscription_clients = 20000|' $CONFIG_FILE
     sed -i 's|max_subscriptions_per_client = .*|max_subscriptions_per_client = 1000|' $CONFIG_FILE
 
