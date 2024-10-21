@@ -8,7 +8,7 @@ PEERS_URL="https://raw.githubusercontent.com/allora-network/networks/main/${NETW
 HEADS_URL="https://raw.githubusercontent.com/allora-network/networks/main/${NETWORK}/heads.txt"
 ADDRESS_URL="https://snapshots.polkachu.com/testnet-addrbook/allora/addrbook.json"
 
-export APP_HOME="${APP_HOME:-./data}"
+export APP_HOME="${APP_HOME:-/home/xtr/allora-chain/data}"
 INIT_FLAG="${APP_HOME}/.initialized"
 MONIKER="${MONIKER:-$(hostname)}"
 KEYRING_BACKEND=test                              #! Use test for simplicity, you should decide which backend to use !!!
@@ -37,7 +37,7 @@ if [ ! -f $INIT_FLAG ]; then
     rm -rf ${APP_HOME}/config
 
     #* Create symlink for allorad config - workaround
-    ln -sf ${APP_HOME} ${HOME}/.allorad
+    ln -sf ${APP_HOME} /home/xtr/.allorad
 
     #* Init node
     $BINARY --home=${APP_HOME} init ${MONIKER} --chain-id=${NETWORK} --default-denom $DENOM
@@ -58,7 +58,7 @@ if [ ! -f $INIT_FLAG ]; then
     $BINARY  --home=${APP_HOME} config set client chain-id ${NETWORK}
     $BINARY  --home=${APP_HOME} config set client keyring-backend $KEYRING_BACKEND
 
-    export APP_HOME="${APP_HOME:-./data}"
+    export APP_HOME="${APP_HOME:-/home/xtr/allora-chain/data}"
     CONFIG_FILE="${APP_HOME}/config/config.toml"
     APP_FILE="${APP_HOME}/config/app.toml"
     # Update Mempool Configuration (16GB)
@@ -103,7 +103,6 @@ if [ ! -f $INIT_FLAG ]; then
     sed -i 's|max-txs = .*|max-txs = 0|' $APP_FILE
     sed -i 's|telemetry.enabled = .*|telemetry.enabled = true|' $APP_FILE
 
-
     touch $INIT_FLAG
 fi
 echo "Node is initialized"
@@ -133,7 +132,7 @@ if [ "x${STATE_SYNC_RPC1}" != "x" ]; then
     dasel put statesync.enable -t bool -v true -f ${APP_HOME}/config/config.toml
     dasel put statesync.rpc_servers -t string -v "$STATE_SYNC_RPC1,$STATE_SYNC_RPC2" -f ${APP_HOME}/config/config.toml
     dasel put statesync.trust_height -t string -v $TRUST_HEIGHT -f ${APP_HOME}/config/config.toml
-    dasel put statesync.trust_hash -t string -v $TRUST_HEIGHT_HASH -f ${APP_HOME}/config/config.toml
+    dasel put statesync.trust_hash -t string -v $TRUST_HEIGHT -f ${APP_HOME}/config/config.toml
 fi
 
 if [ "$UPGRADE" == "true" ]; then
